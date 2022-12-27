@@ -1,0 +1,17 @@
+setwd("C:/Users/jyots/ucb/hw/MechaCar_Statistical_Analysis/Starter_Code")
+library(tidyverse)
+MechaCar_table <- read.csv('MechaCar_mpg.csv',check.names = F,stringsAsFactors = F)
+lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD,data=MechaCar_table) #generate multiple linear regression model
+summary(lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD,data=MechaCar_table)) #generate summary statistics
+
+Suspension_Coil_table <- read.csv('Suspension_Coil.csv',check.names = F,stringsAsFactors = F)
+total_summary <- Suspension_Coil_table %>% summarize(Mean=mean(PSI), Median=median(PSI), Variance=var(PSI), SD=sd(PSI),) #create summary table
+lot_summary <- Suspension_Coil_table %>% group_by(Manufacturing_Lot) %>% summarize(Mean=mean(PSI), Median=median(PSI), Variance=var(PSI), SD=sd(PSI),) #create summary table
+
+t.test(Suspension_Coil_table$PSI, mu=mean(Suspension_Coil_table$PSI))
+data_1 <- Suspension_Coil_table %>% filter(Manufacturing_Lot=='Lot1')
+data_2 <- Suspension_Coil_table %>% filter(Manufacturing_Lot=='Lot2')
+data_3 <- Suspension_Coil_table %>% filter(Manufacturing_Lot=='Lot3')
+t.test(data_1$PSI, mu=mean(Suspension_Coil_table$PSI))
+t.test(data_2$PSI, mu=mean(Suspension_Coil_table$PSI))
+t.test(data_3$PSI, mu=mean(Suspension_Coil_table$PSI))
